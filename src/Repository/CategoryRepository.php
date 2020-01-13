@@ -19,6 +19,11 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    public function format($category)
+    {
+        return ['id' => $category->getId()];
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */
