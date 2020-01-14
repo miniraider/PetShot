@@ -26,7 +26,7 @@ class Publication
     /**
      * @var integer $message
      * 
-     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="publication")
+     * @ORM\OneToMany(targetEntity="PublicationMessage", mappedBy="publication")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $messages;
@@ -93,7 +93,7 @@ class Publication
         return $this;
     }
 
-    public function addMessage(Message $message): self
+    public function addMessage(PublicationMessage $message): self
     {
         if (!$this->messages->contains($message)) {
             $this->messages[] = $message;
@@ -103,7 +103,7 @@ class Publication
         return $this;
     }
 
-    public function removeMessage(Message $message): self
+    public function removeMessage(PublicationMessage $message): self
     {
         if ($this->messages->contains($message)) {
             $this->messages->removeElement($message);

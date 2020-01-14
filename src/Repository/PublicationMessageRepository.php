@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Message;
+use App\Entity\PublicationMessage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Message|null find($id, $lockMode = null, $lockVersion = null)
- * @method Message|null findOneBy(array $criteria, array $orderBy = null)
- * @method Message[]    findAll()
- * @method Message[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PublicationMessage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PublicationMessage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PublicationMessage[]    findAll()
+ * @method PublicationMessage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MessageRepository extends ServiceEntityRepository
+class PublicationMessageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Message::class);
+        parent::__construct($registry, PublicationMessage::class);
     }
 
     // /**

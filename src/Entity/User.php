@@ -24,6 +24,11 @@ class User
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastName;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $score;
@@ -32,6 +37,27 @@ class User
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $email;
+
 
     /**
      * @var integer $kill
@@ -114,6 +140,66 @@ class User
                 $kill->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

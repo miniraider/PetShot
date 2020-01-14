@@ -28,7 +28,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/{id}", name="users_get", methods={"GET"}, requirements={"id": "\d+"})
      */
-    public function getAction($id)
+    public function getAction($id, Request $request)
     {
         $cm = $this->getDoctrine()->getManager();
         $user = $cm->getRepository('App:User')->findOneById($id);
@@ -37,14 +37,18 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/users/{name}", name="users_get_by_name", methods={"GET"})
+     * @Route("/users/find/{name}", name="users_get_by_name", methods={"GET"})
      */
     public function getByNameAction($name)
     {
         $cm = $this->getDoctrine()->getManager();
-        $user = $cm->getRepository('App:User')->findByName($name);
-        if(!$user) throw new \Exception('User not founded');
-        else return new JsonResponse(['id' =>$user->getId()]);
+        $users = $cm->getRepository('App:User')->getMatchUsers($name);
+        $ret = [];
+        foreach ($users as $user) {
+            $ret[] = $cm->getRepository('App:User')->format($user, $cm);
+        }
+
+        return new JsonResponse($ret);
     }
 
     /**
@@ -57,6 +61,10 @@ class UserController extends AbstractController
         $user
             ->setName($request->query->get('name'))
             ->setPassword($request->query->get('password'))
+            ->setLastName($request->query->get('lastName'))
+            ->setPseudo($request->query->get('pseudo'))
+            ->setEmail($request->query->get('email'))
+            ->setTitle('Baby hunter')
         ;
 
         $cm->persist($user);
@@ -72,12 +80,36 @@ class UserController extends AbstractController
         $cm = $this->getDoctrine()->getManager();
         $user = $cm->getRepository('App:User')->findOneById($id);
         if(!$user) throw new \Exception('User not founded');
-        $user
-            ->setName($request->query->get('name'))
-            ->setPassword($request->query->get('password'))
-        ;
+
+        if($request->query->has('name')) {
+            $user->setName($request->query->get('name'));
+        }
+        if($request->query->has('lastName')) {
+            $user->setLastName($request->query->get('lastName'));
+        }
+        if($request->query->has('pseudo')) {
+            $user->setPseudo($request->query->get('pseudo'));
+        }
+        if($request->query->has('email')) {
+            $user->setEmail($request->query->get('email'));
+        }
+
         $cm->persist($user);
         $cm->flush();
-        return new JsonResponse(['state' => 'edit']);
+        return new JsonResponse(['state' => 'edit', 'id' => $user->getId()]);
     }
+
+    /**
+     * @Route("/users/login", name="users_login", methods={"GET"})
+     */
+    public function logInAction(Request $request)
+    {
+        $cm = $this->getDoctrine()->getManager();
+        $pseudo = $request->query->get('pseudo');
+        $password = $request->query->get('password');
+        $user = $cm->getRepository('App:User')->findOneBy(['pseudo' => $pseudo, 'password' => $password]);
+        if(!$user) throw new \Exception('User not found');
+        return new JsonResponse($user->getId());
+    }
+
 }

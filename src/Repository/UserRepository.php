@@ -29,6 +29,19 @@ class UserRepository extends ServiceEntityRepository
         return ['id' => $user->getId(), 'kills' => $formatedKills];
     }
 
+    public function getMatchUsers($name)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.name like :str')
+            ->orWhere('u.pseudo like :str')
+            ->orWhere('u.lastName like :str')
+            ->setParameter('str', '%'.$name.'%')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
     // /**
     //  * @return User[] Returns an array of User objects
