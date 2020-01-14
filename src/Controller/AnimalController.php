@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AnimalController extends AbstractController
 {
     /**
-     * @Route("/category", name="animal_list")
+     * @Route("/category", name="animal_list", methods={"GET"})
      */
     public function listAction()
     {
@@ -24,7 +24,7 @@ class AnimalController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}", name="animal_get")
+     * @Route("/category/{id}", name="animal_get", methods={"GET"})
      */
     public function getAction($id)
     {

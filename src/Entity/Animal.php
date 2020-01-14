@@ -42,6 +42,16 @@ class Animal
     private $trend;
 
     /**
+     * @ORM\Column(type="integer")
+     */
+    private $rarety;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $remaining;
+
+    /**
      * @var integer $category
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
@@ -123,6 +133,30 @@ class Animal
     public function setAggressivity(int $aggressivity): self
     {
         $this->aggressivity = $aggressivity;
+
+        return $this;
+    }
+
+    public function getRarety(): ?int
+    {
+        return $this->rarety;
+    }
+
+    public function setRarety(int $rarety): self
+    {
+        $this->rarety = $rarety;
+
+        return $this;
+    }
+
+    public function getRemaining(): ?int
+    {
+        return $this->remaining;
+    }
+
+    public function setRemaining(int $remaining): self
+    {
+        $this->remaining = $remaining;
 
         return $this;
     }
