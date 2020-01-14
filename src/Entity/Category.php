@@ -21,6 +21,15 @@ class Category
      */
     private $name;
 
+    /**
+     * @var integer $parent
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    protected $parent;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,6 +43,18 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?self $parent): self
+    {
+        $this->parent = $parent;
 
         return $this;
     }
