@@ -67,9 +67,17 @@ class User
      */
     protected $kill;
 
+    /**
+     * @var integer $kill
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\User")
+     */
+    protected $followers;
+
     public function __construct()
     {
         $this->kill = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +208,32 @@ class User
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
+    }
+
+    public function addFollower(User $follower): self
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers[] = $follower;
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(User $follower): self
+    {
+        if ($this->followers->contains($follower)) {
+            $this->followers->removeElement($follower);
+        }
 
         return $this;
     }

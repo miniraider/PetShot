@@ -26,7 +26,8 @@ class UserRepository extends ServiceEntityRepository
         foreach ($kills as $kill) {
             $formatedKills[] = $cm->getRepository('App:UserKill')->format($kill);
         }
-        return ['id' => $user->getId(), 'kills' => $formatedKills];
+        $followers = array_map(function($usr) { return ['id' => $usr->getId(), 'pseudo' => $usr->getPseudo()]; }, $user->getFollowers());
+        return ['id' => $user->getId(), 'kills' => $formatedKills, 'name' => $user->getName(), 'lastName' => $user->getLastName(), 'description' => $user->getDescription(), 'pseudo' => $user->getPseudo(), 'followers' => $followers];
     }
 
     public function getMatchUsers($name)
@@ -37,6 +38,17 @@ class UserRepository extends ServiceEntityRepository
             ->orWhere('u.lastName like :str')
             ->setParameter('str', '%'.$name.'%')
             ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getFollowed($user, $cm)
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.followers', 'fl')
+            ->andWhere('fl.id = :id')
+            ->setParameter('id', $user->getId())
             ->getQuery()
             ->getResult()
         ;

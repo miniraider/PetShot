@@ -19,6 +19,20 @@ class PublicationRepository extends ServiceEntityRepository
         parent::__construct($registry, Publication::class);
     }
 
+    public function format($publication, $cm)
+    {
+        $likes = array_map(function($lk) { return ['id' => $lk->getId(), 'user' => $lk->getUser()->getPseudo()]; }, $publication->getLikes());
+        $messages = array_map(function($msg) { return ['id' => $msg->getId(), 'user' => $msg->getUser()->getPseudo(), 'content' => $msg->getContent()]; }, $publication->getMessages());
+        $kill = ['id' => $publication->getKill()->getId(), 'animal' => $publication->getKill()->getAnimal()->getName(), 'animalCategory' => $publication->getKill()->getCategory()->getName(),'score' => $publication->getKill()->getScore()];
+        return [
+            'id' => $publication->getId(),
+            'dateAdd' => $publication->getDateAdd()->format('c'),
+            'likes' => $likes,
+            'message' => $messages,
+            'kill' => $kill
+        ];
+    }
+
     // /**
     //  * @return Publication[] Returns an array of Publication objects
     //  */

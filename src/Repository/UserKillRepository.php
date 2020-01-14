@@ -21,7 +21,7 @@ class UserKillRepository extends ServiceEntityRepository
 
     public function format($kill, $cm)
     {
-        return ['id' => $kill->getId()];
+        return ['id' => $kill->getId(), 'animal' => $kill->getAnimal()->getName(), 'animalCategory' => $kill->getAnimal()->getCategroy()->getId(), 'score' => $kill->getScore()];
     }
 
     // /**

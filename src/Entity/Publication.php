@@ -45,9 +45,18 @@ class Publication
      */
     private $kill;
 
+    /**
+     * @var integer $likes
+     *
+     * @ORM\OneToMany(targetEntity="PublicationLike", mappedBy="publication")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $likes;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
 
@@ -110,6 +119,45 @@ class Publication
             // set the owning side to null (unless already changed)
             if ($message->getPublication() === $this) {
                 $message->setPublication(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PublicationMessage[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @return Collection|PublicationLike[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(PublicationLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(PublicationLike $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getPublication() === $this) {
+                $like->setPublication(null);
             }
         }
 
