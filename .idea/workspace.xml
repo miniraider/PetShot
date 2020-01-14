@@ -161,7 +161,7 @@
       <option name="presentableId" value="Default" />
       <updated>1578954960511</updated>
       <workItem from="1578954962987" duration="1169000" />
-      <workItem from="1578990392793" duration="2159000" />
+      <workItem from="1578990392793" duration="5253000" />
     </task>
     <servers />
   </component>
@@ -169,10 +169,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="691" y="281" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578991745722">
+    <state x="691" y="281" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578995833173">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="691" y="281" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1578991745722" />
+    <state x="691" y="281" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1578995833173" />
     <state x="661" y="351" key="com.intellij.ide.util.TipDialog" timestamp="1578990394609">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -181,6 +181,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="607" y="141" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1050@0.0.1920.1050" timestamp="1578992111533" />
+    <state x="653" y="122" width="613" height="804" key="find.popup" timestamp="1578996843400">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="653" y="122" width="613" height="804" key="find.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1578996843400" />
     <state x="604" y="253" width="700" height="530" key="recent.locations.popup" timestamp="1578992159957">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

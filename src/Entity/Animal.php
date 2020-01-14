@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +60,19 @@ class Animal
      * @ORM\JoinColumn(nullable=false)
      */
     protected $category;
+
+    /**
+     * @var integer $kill
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\UserKill", mappedBy="animal")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $kill;
+
+    public function __construct()
+    {
+        $this->kill = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -157,6 +172,37 @@ class Animal
     public function setRemaining(int $remaining): self
     {
         $this->remaining = $remaining;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserKill[]
+     */
+    public function getKill(): Collection
+    {
+        return $this->kill;
+    }
+
+    public function addKill(UserKill $kill): self
+    {
+        if (!$this->kill->contains($kill)) {
+            $this->kill[] = $kill;
+            $kill->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKill(UserKill $kill): self
+    {
+        if ($this->kill->contains($kill)) {
+            $this->kill->removeElement($kill);
+            // set the owning side to null (unless already changed)
+            if ($kill->getAnimal() === $this) {
+                $kill->setAnimal(null);
+            }
+        }
 
         return $this;
     }

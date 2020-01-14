@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/category", name="category_list")
+     * @Route("/categories", name="category_list")
      */
     public function listAction()
     {
@@ -24,7 +24,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/{id}", name="category_get")
+     * @Route("/categories/{id}", name="category_get")
      */
     public function getAction($id)
     {

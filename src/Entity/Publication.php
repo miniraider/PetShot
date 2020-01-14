@@ -40,7 +40,7 @@ class Publication
     protected $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Kill")
+     * @ORM\OneToOne(targetEntity="App\Entity\UserKill")
      * @ORM\JoinColumn(name="kill_id", referencedColumnName="id")
      */
     private $kill;
@@ -81,12 +81,12 @@ class Publication
         return $this;
     }
 
-    public function getKill(): ?Kill
+    public function getKill(): ?UserKill
     {
         return $this->kill;
     }
 
-    public function setKill(?Kill $kill): self
+    public function setKill(?UserKill $kill): self
     {
         $this->kill = $kill;
 

@@ -17,9 +17,9 @@ class UserController extends AbstractController
     {
         $ret = [];
         $cm = $this->getDoctrine()->getManager();
-        $animals = $cm->getRepository('App:User')->findAll();
-        foreach ($animals as $animal) {
-            $ret[] = $cm->getRepository('App:User')->format($animal);
+        $users = $cm->getRepository('App:User')->findAll();
+        foreach ($users as $user) {
+            $ret[] = $cm->getRepository('App:User')->format($user, $cm);
         }
 
         return new JsonResponse($ret);
@@ -31,9 +31,9 @@ class UserController extends AbstractController
     public function getAction($id)
     {
         $cm = $this->getDoctrine()->getManager();
-        $animal = $cm->getRepository('App:User')->findOneById($id);
-        if(!$animal) throw new \Exception('User not found');
-        return new JsonResponse($cm->getRepository('App:User')->format($animal));
+        $user = $cm->getRepository('App:User')->findOneById($id);
+        if(!$user) throw new \Exception('User not found');
+        return new JsonResponse($cm->getRepository('App:User')->format($user, $cm));
     }
 
     /**

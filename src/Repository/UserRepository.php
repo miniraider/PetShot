@@ -19,9 +19,14 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function format($user)
+    public function format($user, $cm)
     {
-        return ['id' => $user->getId()];
+        $formatedKills = [];
+        $kills = $cm->getRepository('App:UserKill')->findByUser($user);
+        foreach ($kills as $kill) {
+            $formatedKills[] = $cm->getRepository('App:UserKill')->format($kill);
+        }
+        return ['id' => $user->getId(), 'kills' => $formatedKills];
     }
 
 
