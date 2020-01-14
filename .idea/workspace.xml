@@ -7,7 +7,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -160,7 +160,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1578954960511</updated>
-      <workItem from="1578954962987" duration="1110000" />
+      <workItem from="1578954962987" duration="1169000" />
+      <workItem from="1578990392793" duration="430000" />
     </task>
     <servers />
   </component>
@@ -172,10 +173,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="691" y="281" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1578955973242" />
-    <state x="661" y="351" key="com.intellij.ide.util.TipDialog" timestamp="1578954963623">
+    <state x="661" y="351" key="com.intellij.ide.util.TipDialog" timestamp="1578990394609">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="661" y="351" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1578954963623" />
+    <state x="661" y="351" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1578990394609" />
     <state x="623" y="228" width="672" height="678" key="search.everywhere.popup" timestamp="1578955747987">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>

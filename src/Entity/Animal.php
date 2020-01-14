@@ -29,7 +29,7 @@ class Animal
     /**
      * @ORM\Column(type="integer")
      */
-    private $agressivity;
+    private $aggressivity;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -79,18 +79,6 @@ class Animal
         return $this;
     }
 
-    public function getAgressivity(): ?int
-    {
-        return $this->agressivity;
-    }
-
-    public function setAgressivity(int $agressivity): self
-    {
-        $this->agressivity = $agressivity;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -123,6 +111,18 @@ class Animal
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getAggressivity(): ?int
+    {
+        return $this->aggressivity;
+    }
+
+    public function setAggressivity(int $aggressivity): self
+    {
+        $this->aggressivity = $aggressivity;
 
         return $this;
     }

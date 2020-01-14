@@ -34,6 +34,14 @@ class Message
      */
     protected $user;
 
+    /**
+     * @var integer $message
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Publication", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $publication;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -71,6 +79,18 @@ class Message
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPublication(): ?Publication
+    {
+        return $this->publication;
+    }
+
+    public function setPublication(?Publication $publication): self
+    {
+        $this->publication = $publication;
 
         return $this;
     }

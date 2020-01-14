@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +26,7 @@ class Publication
     /**
      * @var integer $message
      * 
-     * @ORM\ManyToOne(targetEntity="App\Entity\Message")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="publication")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $messages;
@@ -43,6 +45,11 @@ class Publication
      */
     private $kill;
 
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
+
 
 
     public function getId(): ?int
@@ -58,18 +65,6 @@ class Publication
     public function setDateAdd(\DateTimeInterface $dateAdd): self
     {
         $this->dateAdd = $dateAdd;
-
-        return $this;
-    }
-
-    public function getMessages(): ?Message
-    {
-        return $this->messages;
-    }
-
-    public function setMessages(?Message $messages): self
-    {
-        $this->messages = $messages;
 
         return $this;
     }
@@ -94,6 +89,29 @@ class Publication
     public function setKill(?Kill $kill): self
     {
         $this->kill = $kill;
+
+        return $this;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getPublication() === $this) {
+                $message->setPublication(null);
+            }
+        }
 
         return $this;
     }
