@@ -23,7 +23,7 @@ class PublicationRepository extends ServiceEntityRepository
     {
         $likes = array_map(function($lk) { return ['id' => $lk->getId(), 'user' => $lk->getUser()->getPseudo()]; }, $publication->getLikes());
         $messages = array_map(function($msg) { return ['id' => $msg->getId(), 'user' => $msg->getUser()->getPseudo(), 'content' => $msg->getContent()]; }, $publication->getMessages());
-        $kill = ['id' => $publication->getKill()->getId(), 'animal' => $publication->getKill()->getAnimal()->getName(), 'animalCategory' => $publication->getKill()->getCategory()->getName(),'score' => $publication->getKill()->getScore()];
+        $kill = ['id' => $publication->getKill()->getId(), 'animal' => $publication->getKill()->getAnimal()->getName(), 'animalCategory' => $publication->getKill()->getCategory()->getName(),'score' => $publication->getKill()->getScore(), 'lat' =>  $publication->getKill()->getLat(), 'lat' =>  $publication->getKill()->getLng()];
         return [
             'id' => $publication->getId(),
             'dateAdd' => $publication->getDateAdd()->format('c'),
