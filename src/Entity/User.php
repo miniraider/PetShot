@@ -26,6 +26,11 @@ class User
      */
     private $score;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class User
     public function setScore(?int $score): self
     {
         $this->score = $score;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
