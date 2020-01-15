@@ -24,9 +24,9 @@ class UserRepository extends ServiceEntityRepository
         $formatedKills = [];
         $kills = $cm->getRepository('App:UserKill')->findByUser($user);
         foreach ($kills as $kill) {
-            $formatedKills[] = $cm->getRepository('App:UserKill')->format($kill);
+            $formatedKills[] = $cm->getRepository('App:UserKill')->format($kill, $cm);
         }
-        $followers = array_map(function($usr) { return ['id' => $usr->getId(), 'pseudo' => $usr->getPseudo()]; }, $user->getFollowers());
+        $followers = array_map(function($usr) { return ['id' => $usr->getId(), 'pseudo' => $usr->getPseudo()]; }, $user->getFollowers()->toArray());
         return ['id' => $user->getId(), 'kills' => $formatedKills, 'name' => $user->getName(), 'lastName' => $user->getLastName(), 'description' => $user->getDescription(), 'pseudo' => $user->getPseudo(), 'followers' => $followers];
     }
 
@@ -54,6 +54,16 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getLeaderboard($zone){
+
+        $request = $this->createQueryBuilder('u')
+            ->leftJoin('u.kill', 'k');
+        if($zone){
+            $request = $request->andWhere('u.nationality = :zone')
+                ->setParameter('zone', $zone);
+        }
+        return $request->getQuery()->getResult();
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects

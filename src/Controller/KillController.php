@@ -60,10 +60,13 @@ class KillController extends AbstractController
     public function addAction(Request $request)
     {
         $cm = $this->getDoctrine()->getManager();
-        $user = $cm->getRepository('App:User')->findOneById($request->query->get('user'));
-        $kill = new Kill();
+        $user = $cm->getRepository('App:User')->findOneById($request->request->get('user'));
+        $animal = $cm->getRepository('App:Animal')->findOneById($request->request->get('animal'));
+        if(!$animal) throw new \Exception('Animal not found');
+        if(!$user) throw new \Exception('User not found');
+        $kill = new UserKill();
         $kill
-            ->setAnimal($cm->getRepository('App:Animal')->findOneById($request->query->get('animal')))
+            ->setAnimal($animal)
             ->setUser($user)
             ->setDateAdd(new \DateTime())
             ->setLat($request->query->get('lat') ? $request->query->get('lat') : 0)
@@ -77,6 +80,8 @@ class KillController extends AbstractController
         $newPost->setUser($user)
             ->setKill($kill)
             ->setDateAdd(new \DateTime());
+
+        $cm->persist($newPost);
         $cm->flush();
         return new JsonResponse(['state' => 'added', 'id' => $kill->getId()]);
     }

@@ -18,7 +18,7 @@ class UserKill
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
@@ -120,7 +120,7 @@ class UserKill
     public function setAnimal(?Animal $animal): self
     {
         $this->animal = $animal;
-
+        $animal->addKill($this);
         return $this;
     }
 
