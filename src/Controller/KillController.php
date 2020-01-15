@@ -69,8 +69,8 @@ class KillController extends AbstractController
             ->setAnimal($animal)
             ->setUser($user)
             ->setDateAdd(new \DateTime())
-            ->setLat($request->query->get('lat') ? $request->query->get('lat') : 0)
-            ->setLng($request->query->get('lng') ? $request->query->get('lng') : 0)
+            ->setLat($request->request->get('lat') ? $request->request->get('lat') : 0)
+            ->setLng($request->request->get('lng') ? $request->request->get('lng') : 0)
             ->setScore(2560)
         ;
 

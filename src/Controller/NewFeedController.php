@@ -22,9 +22,9 @@ class NewFeedController extends AbstractController
         $message = new PublicationMessage();
         $message
             ->setPublication($publication)
-            ->setUser($cm->getRepository('App:User')->findOneById($request->query->get('user')))
+            ->setUser($cm->getRepository('App:User')->findOneById($request->request->get('user')))
             ->setDateAdd(new \DateTime())
-            ->setContent($request->query->get('content'))
+            ->setContent($request->request->get('content'))
         ;
 
         $cm->persist($message);
@@ -39,8 +39,8 @@ class NewFeedController extends AbstractController
     {
         $cm = $this->getDoctrine()->getManager();
         $message = $cm->getRepository('App:PublicationMessage')->findOneById($message);
-        if($message->getUser()->getId() == $request->query->get('user')) {
-            $message->setContent($request->query->get('content'));
+        if($message->getUser()->getId() == $request->request->get('user')) {
+            $message->setContent($request->request->get('content'));
             $cm->persist($message);
             $cm->flush();
         }
