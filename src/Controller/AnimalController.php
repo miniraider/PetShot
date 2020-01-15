@@ -43,7 +43,7 @@ class AnimalController extends AbstractController
     {
         $cm = $this->getDoctrine()->getManager();
         $animal = $cm->getRepository('App:Animal')->findOneById($id);
-        if(!$animal) throw new \Exception('Animal not found');
+        if (!$animal) throw new \Exception('Animal not found');
         return new JsonResponse($cm->getRepository('App:Animal')->format($animal));
     }
 }

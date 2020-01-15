@@ -27,14 +27,27 @@ class LeaderboardController extends AbstractController
         usort($ret, function($a, $b) {
             return $a['countKills'] < $b['countKills'];
         });
-        /*
-        $ret = [];
+        return new JsonResponse($ret);
+    }
+
+    /**
+     * @Route("/leaderboard/animals", name="animal_leaderboard", methods={"GET"})
+     */
+    public function getAnimalLeaderboardAction(Request $request)
+    {
+        $category = $request->get("category");
         $cm = $this->getDoctrine()->getManager();
-        $kills = $cm->getRepository('App:UserKill')->findAll();
-        foreach ($kills as $kill) {
-            $ret[] = $cm->getRepository('App:UserKill')->format($kill, $cm);
+        $leaderboard = $cm->getRepository('App:Animal')->getLeaderboard($category);
+        $ret = [];
+        foreach ($leaderboard as $animal) {
+            $line =  $cm->getRepository('App:Animal')->formatForLeaderboard($animal, $cm);
+            $line['countKills'] = count($line['kills']);
+            $ret[] = $line;
         }
-        */
+
+        usort($ret, function($a, $b) {
+            return $a['countKills'] < $b['countKills'];
+        });
         return new JsonResponse($ret);
     }
 }

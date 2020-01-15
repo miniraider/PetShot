@@ -24,6 +24,15 @@ class AnimalRepository extends ServiceEntityRepository
         return ['id' => $animal->getId(), 'name' => $animal->getName(), 'category' => $animal->getCategory()->getName(), 'score' => $animal->getScore()];
     }
 
+    public function formatForLeaderboard($animal, $cm){
+        $kills = $cm->getRepository('App:UserKill')->findByAnimal($animal);
+        $ret = [];
+        foreach ($kills as $kill) {
+            $ret[] = $cm->getRepository('App:UserKill')->format($kill, $cm);
+        }
+        return ['id' => $animal->getId(), 'name' => $animal->getName(), 'category' => $animal->getCategory()->getName(), 'score' => $animal->getScore(), 'kills' => $ret];
+    }
+
     public function getAnimalsFiltered($name, $category, $habitat, $rarity, $score) {
         $query = $this->createQueryBuilder('a');
 
@@ -60,6 +69,17 @@ class AnimalRepository extends ServiceEntityRepository
         }
         
         return $query->getQuery()->getResult();
+    }
+
+    public function getLeaderboard($category){
+        $request = $this->createQueryBuilder('a')
+            ->leftJoin('a.kill', 'k')
+            ->leftJoin('a.category', 'c');
+        if($category){
+            $request = $request->andWhere('c.id = :category')
+                ->setParameter('category', $category);
+        }
+        return $request->getQuery()->getResult();
     }
 
     // /**

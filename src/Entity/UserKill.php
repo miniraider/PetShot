@@ -120,7 +120,7 @@ class UserKill
     public function setAnimal(?Animal $animal): self
     {
         $this->animal = $animal;
-
+        $animal->addKill($this);
         return $this;
     }
 
