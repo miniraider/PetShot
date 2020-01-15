@@ -24,6 +24,7 @@ class NewFeedController extends AbstractController
             ->setPublication($publication)
             ->setUser($cm->getRepository('App:User')->findOneById($request->query->get('user')))
             ->setDateAdd(new \DateTime())
+            ->setContent($request->query->get('content'))
         ;
 
         $cm->persist($message);
@@ -37,10 +38,12 @@ class NewFeedController extends AbstractController
     public function editMessageAction($message, Request $request)
     {
         $cm = $this->getDoctrine()->getManager();
-        $message->setContent($request->query->get('content'));
-
-        $cm->persist($message);
-        $cm->flush();
+        $message = $cm->getRepository('App:PublicationMessage')->findOneById($message);
+        if($message->getUser()->getId() == $request->query->get('user')) {
+            $message->setContent($request->query->get('content'));
+            $cm->persist($message);
+            $cm->flush();
+        }
         return new JsonResponse(['state' => 'added', 'id' => $message->getPublication()->getId()]);
     }
 

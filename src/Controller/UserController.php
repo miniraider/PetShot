@@ -59,11 +59,11 @@ class UserController extends AbstractController
         $cm = $this->getDoctrine()->getManager();
         $user = new User();
         $user
-            ->setName($request->query->get('name'))
-            ->setPassword($request->query->get('password'))
-            ->setLastName($request->query->get('lastName'))
-            ->setPseudo($request->query->get('pseudo'))
-            ->setEmail($request->query->get('email'))
+            ->setName($request->request->get('name'))
+            ->setPassword($request->request->get('password'))
+            ->setLastName($request->request->get('lastName'))
+            ->setPseudo($request->request->get('pseudo'))
+            ->setEmail($request->request->get('email'))
             ->setTitle('Baby hunter')
         ;
 
@@ -81,17 +81,17 @@ class UserController extends AbstractController
         $user = $cm->getRepository('App:User')->findOneById($id);
         if(!$user) throw new \Exception('User not founded');
 
-        if($request->query->has('name')) {
-            $user->setName($request->query->get('name'));
+        if($request->request->has('name')) {
+            $user->setName($request->request->get('name'));
         }
-        if($request->query->has('lastName')) {
-            $user->setLastName($request->query->get('lastName'));
+        if($request->request->has('lastName')) {
+            $user->setLastName($request->request->get('lastName'));
         }
-        if($request->query->has('pseudo')) {
-            $user->setPseudo($request->query->get('pseudo'));
+        if($request->request->has('pseudo')) {
+            $user->setPseudo($request->request->get('pseudo'));
         }
-        if($request->query->has('email')) {
-            $user->setEmail($request->query->get('email'));
+        if($request->request->has('email')) {
+            $user->setEmail($request->request->get('email'));
         }
 
         $cm->persist($user);
