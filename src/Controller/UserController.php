@@ -65,6 +65,7 @@ class UserController extends AbstractController
             ->setLastName($data['lastName'])
             ->setPseudo($data['pseudo'])
             ->setEmail($data['email'])
+            ->setNationality($data['nationality'])
             ->setTitle('Baby hunter')
         ;
 
