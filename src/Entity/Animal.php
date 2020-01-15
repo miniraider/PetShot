@@ -44,7 +44,7 @@ class Animal
     private $trend;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      */
     private $rarety;
 
@@ -52,6 +52,31 @@ class Animal
      * @ORM\Column(type="integer")
      */
     private $remaining;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $scientificName;
+
+    /**
+     * @ORM\Column(type="boolean", length=255)
+     */
+    private $marine;
+
+    /**
+     * @ORM\Column(type="boolean", length=255)
+     */
+    private $freshwater;
+
+    /**
+     * @ORM\Column(type="boolean", length=255)
+     */
+    private $terrestrial;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $taxon;
 
     /**
      * @var integer $category
@@ -152,18 +177,6 @@ class Animal
         return $this;
     }
 
-    public function getRarety(): ?int
-    {
-        return $this->rarety;
-    }
-
-    public function setRarety(int $rarety): self
-    {
-        $this->rarety = $rarety;
-
-        return $this;
-    }
-
     public function getRemaining(): ?int
     {
         return $this->remaining;
@@ -203,6 +216,78 @@ class Animal
                 $kill->setAnimal(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getScientificName(): ?string
+    {
+        return $this->scientificName;
+    }
+
+    public function setScientificName(string $scientificName): self
+    {
+        $this->scientificName = $scientificName;
+
+        return $this;
+    }
+
+    public function getMarine(): ?bool
+    {
+        return $this->marine;
+    }
+
+    public function setMarine(bool $marine): self
+    {
+        $this->marine = $marine;
+
+        return $this;
+    }
+
+    public function getFreshwater(): ?bool
+    {
+        return $this->freshwater;
+    }
+
+    public function setFreshwater(bool $freshwater): self
+    {
+        $this->freshwater = $freshwater;
+
+        return $this;
+    }
+
+    public function getTerrestrial(): ?bool
+    {
+        return $this->terrestrial;
+    }
+
+    public function setTerrestrial(bool $terrestrial): self
+    {
+        $this->terrestrial = $terrestrial;
+
+        return $this;
+    }
+
+    public function getTaxon(): ?int
+    {
+        return $this->taxon;
+    }
+
+    public function setTaxon(int $taxon): self
+    {
+        $this->taxon = $taxon;
+
+        return $this;
+    }
+
+    public function getRarety(): ?string
+    {
+        return $this->rarety;
+    }
+
+    public function setRarety(string $rarety): self
+    {
+        $this->rarety = $rarety;
 
         return $this;
     }

@@ -21,7 +21,7 @@ class AnimalRepository extends ServiceEntityRepository
 
     public function format($animal)
     {
-        return ['id' => $animal->getId()];
+        return ['id' => $animal->getId(), 'name' => $animal->getName(), 'category' => $animal->getCategory()->getName(), 'score' => $animal->getScore()];
     }
 
     // /**
