@@ -59,7 +59,7 @@ class NewFeedController extends AbstractController
     }
 
     /**
-     * @Route("/newfeed/unfollow/{source}/{target}", name="newfeed_follow", methods={"PUT"})
+     * @Route("/newfeed/unfollow/{source}/{target}", name="newfeed_unfollow", methods={"PUT"})
      */
     public function unfollowAction($source, $target, Request $request)
     {
@@ -91,7 +91,7 @@ class NewFeedController extends AbstractController
     }
 
     /**
-     * @Route("/newfeed/like/{user}/{publication}", name="newfeed_manage_like", methods={"GET"}, requirements={"user": "\d", "publication":"\d"})
+     * @Route("/newfeed/like/{user}/{publication}", name="newfeed_manage_like", methods={"POST"}, requirements={"user": "\d", "publication":"\d"})
      */
     public function manageLikeAction($user, $publication, Request $request)
     {
