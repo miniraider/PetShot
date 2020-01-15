@@ -74,6 +74,11 @@ class User
      */
     protected $followers;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $nationality;
+
     public function __construct()
     {
         $this->kill = new ArrayCollection();
@@ -234,6 +239,18 @@ class User
         if ($this->followers->contains($follower)) {
             $this->followers->removeElement($follower);
         }
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(string $nationality): self
+    {
+        $this->nationality = $nationality;
 
         return $this;
     }
