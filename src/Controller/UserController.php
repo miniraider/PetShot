@@ -56,14 +56,15 @@ class UserController extends AbstractController
      */
     public function addAction(Request $request)
     {
+        $data = json_decode($request->getContent(), true);
         $cm = $this->getDoctrine()->getManager();
         $user = new User();
         $user
-            ->setName($request->request->get('name'))
-            ->setPassword($request->request->get('password'))
-            ->setLastName($request->request->get('lastName'))
-            ->setPseudo($request->request->get('pseudo'))
-            ->setEmail($request->request->get('email'))
+            ->setName($data['name'])
+            ->setPassword($data['password'])
+            ->setLastName($data['lastName'])
+            ->setPseudo($data['pseudo'])
+            ->setEmail($data['email'])
             ->setTitle('Baby hunter')
         ;
 
@@ -77,21 +78,22 @@ class UserController extends AbstractController
      */
     public function editAction($id, Request $request)
     {
+        $data = json_decode($request->getContent(), true);
         $cm = $this->getDoctrine()->getManager();
         $user = $cm->getRepository('App:User')->findOneById($id);
         if(!$user) throw new \Exception('User not founded');
 
-        if($request->request->has('name')) {
-            $user->setName($request->request->get('name'));
+        if(isset($data['name'])) {
+            $user->setName($data['name']);
         }
-        if($request->request->has('lastName')) {
-            $user->setLastName($request->request->get('lastName'));
+        if(isset($data['lastName'])) {
+            $user->setLastName($data['lastName']);
         }
-        if($request->request->has('pseudo')) {
-            $user->setPseudo($request->request->get('pseudo'));
+        if(isset($data['pseudo'])) {
+            $user->setPseudo($data['pseudo']);
         }
-        if($request->request->has('email')) {
-            $user->setEmail($request->request->get('email'));
+        if(isset($data['email'])) {
+            $user->setEmail($data['email']);
         }
 
         $cm->persist($user);
@@ -104,9 +106,10 @@ class UserController extends AbstractController
      */
     public function logInAction(Request $request)
     {
+        $data = json_decode($request->getContent(), true);
         $cm = $this->getDoctrine()->getManager();
-        $pseudo = $request->query->get('pseudo');
-        $password = $request->query->get('password');
+        $pseudo = $data['pseudo'];
+        $password = $data['password'];
         $user = $cm->getRepository('App:User')->findOneBy(['pseudo' => $pseudo, 'password' => $password]);
         if(!$user) throw new \Exception('User not found');
         return new JsonResponse($user->getId());
