@@ -107,10 +107,12 @@ class UserController extends AbstractController
      */
     public function logInAction(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
+        //$data = json_decode($request->getContent(), true);
         $cm = $this->getDoctrine()->getManager();
-        $pseudo = $data['pseudo'];
-        $password = $data['password'];
+        //$pseudo = $data['pseudo'];
+        //$password = $data['password'];
+        $pseudo = $request->query->get('pseudo');
+        $password = $request->query->get('password');
         $user = $cm->getRepository('App:User')->findOneBy(['pseudo' => $pseudo, 'password' => $password]);
         if(!$user) throw new \Exception('User not found');
         return new JsonResponse($user->getId());
