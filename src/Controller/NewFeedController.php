@@ -85,7 +85,7 @@ class NewFeedController extends AbstractController
         $ret = [];
 
         foreach ($publications as $publication) {
-            $ret[] =  $cm->getRepository('App:Publication')->format($publication);
+            $ret[] =  $cm->getRepository('App:Publication')->format($publication, $cm);
         }
         return new JsonResponse($ret);
     }

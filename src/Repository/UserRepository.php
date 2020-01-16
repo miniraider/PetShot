@@ -45,13 +45,15 @@ class UserRepository extends ServiceEntityRepository
 
     public function getFollowed($user, $cm)
     {
-        return $this->createQueryBuilder('u')
+        $users = $this->createQueryBuilder('u')
             ->leftJoin('u.followers', 'fl')
             ->andWhere('fl.id = :id')
             ->setParameter('id', $user->getId())
             ->getQuery()
             ->getResult()
         ;
+
+        return $users;
     }
 
     public function getLeaderboard($zone){
