@@ -72,6 +72,7 @@ class KillController extends AbstractController
             ->setDateAdd(new \DateTime())
             ->setLat($data['lat'] ? $data['lat'] : 0)
             ->setLng($data['lng'] ? $data['lng'] : 0)
+            ->setImage($data['image'])
             ->setScore(2560)
         ;
 
