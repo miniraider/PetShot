@@ -17,13 +17,15 @@ class NewFeedController extends AbstractController
      */
     public function addMessageAction($publication, Request $request)
     {
+        $data = json_decode($request->getContent(), true);
         $cm = $this->getDoctrine()->getManager();
         $publication = $cm->getRepository('App:Publication')->findOneById($publication);
         $message = new PublicationMessage();
         $message
             ->setPublication($publication)
-            ->setUser($cm->getRepository('App:User')->findOneById($request->query->get('user')))
+            ->setUser($cm->getRepository('App:User')->findOneById($data['user']))
             ->setDateAdd(new \DateTime())
+            ->setContent($data['content'])
         ;
 
         $cm->persist($message);
@@ -36,11 +38,14 @@ class NewFeedController extends AbstractController
      */
     public function editMessageAction($message, Request $request)
     {
+        $data = json_decode($request->getContent(), true);
         $cm = $this->getDoctrine()->getManager();
-        $message->setContent($request->query->get('content'));
-
-        $cm->persist($message);
-        $cm->flush();
+        $message = $cm->getRepository('App:PublicationMessage')->findOneById($message);
+        if($message->getUser()->getId() == $data['user']) {
+            $message->setContent($data['content']);
+            $cm->persist($message);
+            $cm->flush();
+        }
         return new JsonResponse(['state' => 'added', 'id' => $message->getPublication()->getId()]);
     }
 
