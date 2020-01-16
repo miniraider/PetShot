@@ -96,6 +96,9 @@ class UserController extends AbstractController
         if(isset($data['email'])) {
             $user->setEmail($data['email']);
         }
+        if(isset($data['image'])) {
+            $user->setImage($data['image']);
+        }
 
         $cm->persist($user);
         $cm->flush();

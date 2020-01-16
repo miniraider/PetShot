@@ -58,6 +58,11 @@ class User
      */
     private $email;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $image;
+
 
     /**
      * @var integer $kill
@@ -251,6 +256,18 @@ class User
     public function setNationality(string $nationality): self
     {
         $this->nationality = $nationality;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
